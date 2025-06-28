@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab90176700837d47b6990f1e4680db6, type: 3}
+  m_Name: CharacterMovementSettings
+  m_EditorClassIdentifier: 
+  _gravity: 9.8
+  _maxHorizontalVelocity: 30
+  _maxVerticalVelocity: 10
+  _movementAcceleration: 2
+  _movementDeceleration: 2
+  _movementVelocity: 10
+  _rotationAcceleration: 10
+  _rotationDeceleration: 10
+  _jumpVelocity: 18
+  _jumpBoostDuration: 0.85
+  _airMovementDamping: 0.5
+  _airRotationDamping: 0.5
+  _groundSensorSettings: {fileID: 0}
+  _grindableSensorSettings: {fileID: 0}
+  _grindSpeed: 15
+  _grindAcceleration: 5
+  _grindDeceleration: 3
+  _grindRotationSpeed: 10
+  _railSpringForce: 50
+  _railDampingForce: 5
+  _railSnapSpeed: 20
+  _railExitForce: 15
+  _railExitUpwardForce: 5

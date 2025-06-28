@@ -13,7 +13,9 @@
       "version": "file:com.darklight.unityext.core",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.dbrizov.naughtyattributes": "2.1.4"
+      }
     },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
