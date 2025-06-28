@@ -15,7 +15,7 @@ MonoBehaviour:
   _gravity: 9.8
   _maxHorizontalVelocity: 30
   _maxVerticalVelocity: 10
-  _movementAcceleration: 2
+  _movementAcceleration: 10
   _movementDeceleration: 2
   _movementVelocity: 10
   _rotationAcceleration: 10
@@ -24,8 +24,8 @@ MonoBehaviour:
   _jumpBoostDuration: 0.85
   _airMovementDamping: 0.5
   _airRotationDamping: 0.5
-  _groundSensorSettings: {fileID: 0}
-  _grindableSensorSettings: {fileID: 0}
+  _groundSensorSettings: {fileID: 11400000, guid: 5ef78957e55e4f3498b5a7a753e86a2f, type: 2}
+  _grindableSensorSettings: {fileID: 11400000, guid: 5ea62e527157c9244865d9ef013c5439, type: 2}
   _grindSpeed: 15
   _grindAcceleration: 5
   _grindDeceleration: 3
