@@ -181,5 +181,10 @@ namespace ProjectHeart.Input
         {
             throw new NotImplementedException();
         }
+
+        public void OnZoom(InputAction.CallbackContext context)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

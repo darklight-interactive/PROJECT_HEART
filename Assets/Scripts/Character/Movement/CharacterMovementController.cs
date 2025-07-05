@@ -43,6 +43,9 @@ namespace ProjectHeart.Character
         [SerializeField, Required]
         Transform _modelTransform;
 
+        [SerializeField, Required]
+        Camera _playerCamera;
+
         [Header("Active Data")]
         [SerializeField]
         MovementStateMachine _stateMachine;
@@ -148,10 +151,32 @@ namespace ProjectHeart.Character
         #endregion
 
         #region < PRIVATE_METHODS > [[ Calculate Target Values ]] ================================================================
+        /// <summary>
+        /// Calculates and sets the target horizontal direction based on camera-relative input.
+        /// Transforms the input direction from camera space to world space.
+        /// </summary>
+        /// <param name="targetDirection">The target direction to be updated.</param>
         void CalculateAndSetTargetHorizontalDirection(ref MotionVector targetDirection)
         {
             Vector2 moveInput = GlobalInputReader.PlayerInput.MoveValue;
-            targetDirection.Horizontal = moveInput.normalized;
+
+            // Get camera's forward and right vectors, ignoring Y component
+            Vector3 cameraForward = _playerCamera.transform.forward;
+            Vector3 cameraRight = _playerCamera.transform.right;
+
+            // Flatten vectors to horizontal plane
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
+
+            // Normalize the flattened vectors
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            // Transform input from camera space to world space
+            Vector3 worldDirection = (cameraRight * moveInput.x) + (cameraForward * moveInput.y);
+
+            // Convert to 2D horizontal direction
+            targetDirection.Horizontal = new Vector2(worldDirection.x, worldDirection.z).normalized;
         }
 
         void CalculateAndSetTargetHorizontalVelocity(
