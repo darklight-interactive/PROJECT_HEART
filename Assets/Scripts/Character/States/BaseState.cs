@@ -1,21 +1,21 @@
-using Darklight.UnityExt.Behaviour;
+using Darklight.Behaviour;
 using ProjectHeart.Input;
 
 namespace ProjectHeart.Character
 {
-    public partial class CharacterMovement
+    public partial class CharacterMovementController
     {
         public abstract class BaseState : FiniteState<MovementState>
         {
-            protected readonly StateMachine stateMachine;
-            protected readonly CharacterMovement controller;
+            protected readonly MovementStateMachine stateMachine;
+            protected readonly CharacterMovementController controller;
             protected readonly CharacterMovementSettings settings;
             protected readonly InputActionMap_Player input;
 
-            public BaseState(StateMachine machine, MovementState state)
+            public BaseState(MovementStateMachine machine, MovementState state)
                 : base(state)
             {
-                stateMachine = machine as StateMachine;
+                stateMachine = machine as MovementStateMachine;
                 controller = stateMachine.Controller;
                 settings = controller.Settings;
                 input = GlobalInputReader.PlayerInput;

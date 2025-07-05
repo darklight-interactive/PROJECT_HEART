@@ -1,10 +1,10 @@
 namespace ProjectHeart.Character
 {
-    public partial class CharacterMovement
+    public partial class CharacterMovementController
     {
         public class FallingState : BaseState
         {
-            public FallingState(StateMachine machine)
+            public FallingState(MovementStateMachine machine)
                 : base(machine, MovementState.FALLING) { }
 
             public override void Execute()

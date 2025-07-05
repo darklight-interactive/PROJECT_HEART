@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Darklight.UnityExt.Editor;
+using System.Linq;
+using Darklight.Editor;
 using NaughtyAttributes;
 using UnityEngine;
-using System.Linq;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -81,7 +80,9 @@ namespace RemixSurvivors.Survivor
 
         public void GetClosestCollider(out Collider closestCollider)
         {
-            closestCollider = colliders.OrderBy(c => Vector3.Distance(transform.position, c.transform.position)).FirstOrDefault();
+            closestCollider = colliders
+                .OrderBy(c => Vector3.Distance(transform.position, c.transform.position))
+                .FirstOrDefault();
         }
 
         protected bool CheckCollision()

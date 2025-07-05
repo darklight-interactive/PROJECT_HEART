@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Darklight.UnityExt.Behaviour;
+using Darklight.Behaviour;
 
 namespace RemixSurvivors.Survivor
 {

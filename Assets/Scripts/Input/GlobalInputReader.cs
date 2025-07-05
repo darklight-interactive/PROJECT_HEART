@@ -1,5 +1,5 @@
 using System;
-using Darklight.UnityExt.Behaviour;
+using Darklight.Behaviour;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;

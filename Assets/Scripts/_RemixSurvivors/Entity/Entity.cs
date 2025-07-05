@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Darklight.UnityExt.Behaviour;
-using Darklight.UnityExt.Collection;
+using Darklight.Behaviour;
+using Darklight.Collection;
 using NaughtyAttributes;
 using RemixSurvivors.AI;
 using RemixSurvivors.HealthSystem;

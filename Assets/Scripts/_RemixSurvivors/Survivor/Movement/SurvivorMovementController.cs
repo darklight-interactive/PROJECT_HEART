@@ -1,6 +1,6 @@
 using System;
-using Darklight.UnityExt.Input;
-using Darklight.UnityExt.World;
+using Darklight.Input;
+using Darklight.World;
 using NaughtyAttributes;
 using UnityEngine;
 #if UNITY_EDITOR

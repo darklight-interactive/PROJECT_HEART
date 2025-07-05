@@ -1,10 +1,10 @@
 namespace ProjectHeart.Character
 {
-    public partial class CharacterMovement
+    public partial class CharacterMovementController
     {
         public class GroundMoveState : BaseState
         {
-            public GroundMoveState(StateMachine machine)
+            public GroundMoveState(MovementStateMachine machine)
                 : base(machine, MovementState.GROUND_MOVE) { }
 
             public override void Enter()

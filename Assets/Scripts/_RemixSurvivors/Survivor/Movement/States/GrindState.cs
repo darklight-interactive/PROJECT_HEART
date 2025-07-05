@@ -1,5 +1,5 @@
 using System.Collections;
-using Darklight.UnityExt.Editor;
+using Darklight.Editor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -125,8 +125,10 @@ namespace RemixSurvivors.Survivor
                     _targetPoint = nextPoint;
                 }
 
-                if ((_targetPoint.IsEnd && _grindDirection == FORWARD) ||
-                    (_targetPoint.IsStart && _grindDirection == BACKWARD))
+                if (
+                    (_targetPoint.IsEnd && _grindDirection == FORWARD)
+                    || (_targetPoint.IsStart && _grindDirection == BACKWARD)
+                )
                 {
                     stateMachine.GoToState(MovementState.GRIND_JUMP);
                 }

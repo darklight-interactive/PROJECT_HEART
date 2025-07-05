@@ -1,5 +1,5 @@
 ﻿using System;
-using Darklight.UnityExt.Editor;
+using Darklight.Editor;
 using UnityEngine;
 
 namespace RemixSurvivors.HealthSystem
@@ -14,11 +14,14 @@ namespace RemixSurvivors.HealthSystem
         [SerializeField]
         private float maxHealth = 100.0f;
 
-
         /// <summary>
         /// Gets the current amount of health
         /// </summary>
-        public override float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
+        public override float CurrentHealth
+        {
+            get => _currentHealth;
+            set => _currentHealth = value;
+        }
 
         /// <summary>
         /// Returns true if the current amount of health is greater than zero

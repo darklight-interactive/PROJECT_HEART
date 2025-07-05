@@ -1,12 +1,12 @@
 namespace ProjectHeart.Character
 {
-    public partial class CharacterMovement
+    public partial class CharacterMovementController
     {
         public class GroundJumpState : BaseState
         {
             public float elapsedJumpTime;
 
-            public GroundJumpState(StateMachine machine)
+            public GroundJumpState(MovementStateMachine machine)
                 : base(machine, MovementState.GROUND_JUMP) { }
 
             public override void Enter()

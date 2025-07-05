@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Darklight.UnityExt.Behaviour;
+using Darklight.Behaviour;
 using NaughtyAttributes;
 using RemixSurvivors.AI;
 using UnityEngine;

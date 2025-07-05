@@ -1,5 +1,5 @@
-//using Darklight.UnityExt.Input.Editor;
-using Darklight.UnityExt.Utility;
+//using Darklight.Input.Editor;
+using Darklight.Utility;
 using UnityEditor;
 using UnityEngine;
 

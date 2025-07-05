@@ -1,7 +1,7 @@
 using System;
 using System.Data.SqlTypes;
-using Darklight.UnityExt.Core3D;
-using Darklight.UnityExt.Editor;
+using Darklight.Core3D;
+using Darklight.Editor;
 using NaughtyAttributes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -90,7 +90,8 @@ namespace RemixSurvivors
                     return true;
                 if (a.IsNull || b.IsNull)
                     return false;
-                return a.WorldPosition == b.WorldPosition && math.abs(a._progress - b._progress) < float.Epsilon;
+                return a.WorldPosition == b.WorldPosition
+                    && math.abs(a._progress - b._progress) < float.Epsilon;
             }
 
             public static bool operator !=(RailPoint a, RailPoint b)

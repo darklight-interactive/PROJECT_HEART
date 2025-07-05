@@ -1,10 +1,10 @@
 namespace ProjectHeart.Character
 {
-    public partial class CharacterMovement
+    public partial class CharacterMovementController
     {
         public class IdleState : BaseState
         {
-            public IdleState(StateMachine machine)
+            public IdleState(MovementStateMachine machine)
                 : base(machine, MovementState.IDLE) { }
 
             public override void Enter()
