@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Darklight.Behaviour;
+using Darklight.Editor;
 using Darklight.World;
 using NaughtyAttributes;
 using ProjectHeart.Input;
@@ -53,9 +54,6 @@ namespace ProjectHeart.Character
         [SerializeField]
         Sensor _groundSensor;
 
-        [SerializeField]
-        Sensor _grindableSensor;
-
         [Header("Settings")]
         [SerializeField, Required, Expandable]
         CharacterMovementSettings _settings;
@@ -63,8 +61,7 @@ namespace ProjectHeart.Character
         // -- ( Properties ) -------------------------------------------------------------------------------------------- >>
         public MovementStateMachine StateMachine => _stateMachine;
         public CharacterMovementSettings Settings => _settings;
-        public Sensor GroundSensor => _groundSensor;
-        public Sensor GrindableSensor => _grindableSensor;
+        public ISensor GroundSensor => _groundSensor;
         public Vector3 CurrentPosition => transform.position;
         public MotionVector TargetDirection => _mv_targetDirection;
         public MotionVector CurrentDirection => _mv_currentDirection;
@@ -84,14 +81,6 @@ namespace ProjectHeart.Character
             // (( Rigidbody )) ----------------- ))
             _rb = GetComponent<Rigidbody>();
             _rb.constraints = RigidbodyConstraints.FreezeRotation;
-
-            // (( Ground Check )) ----------------- ))
-            _groundSensor = new Sensor(Settings.GroundSensorSettings, transform);
-            OnFixedUpdateEvent += _groundSensor.Execute; // << execute the ground sensor on fixed update
-
-            // (( Grindable Check ))
-            _grindableSensor = new Sensor(Settings.GrindableSensorSettings, transform);
-            OnFixedUpdateEvent += _grindableSensor.Execute; // << execute the grindable sensor on fixed update
 
             // (( StateMachine )) ----------------- ))
             _stateMachine = new MovementStateMachine(this);
@@ -122,16 +111,15 @@ namespace ProjectHeart.Character
         {
             // Invoke the draw gizmos event
             OnDrawGizmosEvent?.Invoke();
-
-            // Draw the sensor gizmos
-            _groundSensor.DrawGizmos();
-            _grindableSensor.DrawGizmos();
         }
 
         void OnDrawGizmosSelected()
         {
             // Invoke the draw gizmos selected event
             OnDrawGizmosSelectedEvent?.Invoke();
+
+            // Draw the movement gizmos
+            DrawMovementGizmos();
         }
 
         void OnDisable()
@@ -298,6 +286,57 @@ namespace ProjectHeart.Character
                 accelMultiplier * Time.deltaTime
             );
         }
+        #endregion
+
+        #region < PRIVATE_METHODS > [[ Draw Custom Gizmos ]] ================================================================
+        void DrawMovementGizmos()
+        {
+            Vector3 position = transform.position;
+
+            // === Draw Directions ===
+            Vector3 currentDir = new Vector3(
+                _mv_currentDirection.Horizontal.x,
+                0f,
+                _mv_currentDirection.Horizontal.y
+            );
+            Vector3 targetDir = new Vector3(
+                _mv_targetDirection.Horizontal.x,
+                0f,
+                _mv_targetDirection.Horizontal.y
+            );
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(position, position + currentDir * 2f);
+            Gizmos.DrawSphere(position + currentDir * 2f, 0.05f);
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(position, position + targetDir * 2f);
+            Gizmos.DrawWireSphere(position + targetDir * 2f, 0.05f);
+
+            // === Draw Velocities ===
+            Vector3 currentVel = _mv_currentVelocity.Combined;
+            Vector3 targetVel = _mv_targetVelocity.Combined;
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(position, position + currentVel * 0.5f);
+            Gizmos.DrawCube(position + currentVel * 0.5f, Vector3.one * 0.05f);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(position, position + targetVel * 0.5f);
+            Gizmos.DrawWireCube(position + targetVel * 0.5f, Vector3.one * 0.05f);
+
+            // === Draw Rotations ===
+            Vector3 forward = _modelTransform.forward;
+
+            // Current Rotation (red)
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(position, _mv_currentRotation * Vector3.forward * 1.5f);
+
+            // Target Rotation (magenta)
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawRay(position, _mv_targetRotation * Vector3.forward * 1.5f);
+        }
+
         #endregion
 
         #region < PUBLIC_METHODS > [[ Initialize ]] ================================================================

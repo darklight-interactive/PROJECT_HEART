@@ -1,6 +1,6 @@
+using Darklight.Behaviour;
 using Darklight.Editor;
 using NaughtyAttributes;
-using RemixSurvivors.AI;
 using UnityEngine;
 
 namespace ProjectHeart.Character

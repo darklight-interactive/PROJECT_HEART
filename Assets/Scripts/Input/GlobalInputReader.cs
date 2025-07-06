@@ -48,6 +48,8 @@ namespace ProjectHeart.Input
         public static InputActionMap_Player PlayerInput => Instance._playerActionMap;
         public static InputActionMap_UI UIInput => Instance._uiActionMap;
 
+        public static event Action OnInitialized;
+
         public static bool IsMouse(InputAction.CallbackContext context) =>
             context.control.device is Mouse;
 
@@ -119,7 +121,7 @@ namespace ProjectHeart.Input
         protected override void Initialize()
         {
             base.Initialize();
-            Debug.Log($"[{Prefix}] Initialized");
+            Debug.Log($"{Prefix} Initialized");
 
             // Create the input action classes
             if (_inputActions == null)
@@ -152,6 +154,7 @@ namespace ProjectHeart.Input
             }
 
             LoadAllConnectedDevices();
+            OnInitialized?.Invoke();
         }
 
         public void EnablePlayerActions()

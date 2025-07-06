@@ -67,7 +67,7 @@ namespace ProjectHeart.Input
         /// <summary>
         /// Called when the player interacts.
         /// </summary>
-        public event Action Interact;
+        public event Action Interact = () => Debug.Log("Interact");
 
         /// <summary>
         /// Called when the player crouches.
@@ -130,13 +130,11 @@ namespace ProjectHeart.Input
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (context.performed || context.canceled)
+            if (context.started || context.performed)
             {
                 Interact?.Invoke();
-            }
-
-            if (context.started || context.performed)
                 _interactValue = true;
+            }
             else if (context.canceled)
                 _interactValue = false;
         }
