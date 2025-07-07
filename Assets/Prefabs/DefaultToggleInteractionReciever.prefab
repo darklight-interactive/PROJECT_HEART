@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7542104387994640822}
   - component: {fileID: 8363618556793348730}
   m_Layer: 0
-  m_Name: SIMPLE INTERACTION RECIEVER
+  m_Name: DefaultToggleInteractionReciever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

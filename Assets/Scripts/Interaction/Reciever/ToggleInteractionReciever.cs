@@ -8,7 +8,7 @@ namespace ProjectHeart.Interaction
     /// <summary>
     /// A simple interaction reciever that toggles an 'ON' and 'OFF' UnityEvent when the interactable is interacted with.
     /// </summary>
-    public class SimpleInteractionReciever : BaseInteractionReciever
+    public class ToggleInteractionReciever : BaseInteractionReciever
     {
         [SerializeField, ReadOnly]
         bool _isOn = false;

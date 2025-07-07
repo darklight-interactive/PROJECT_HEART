@@ -4,7 +4,7 @@ namespace ProjectHeart.Interaction
 {
     public enum InteractionType
     {
-        SIMPLE,
+        ONE_SHOT,
         TOGGLE,
         TARGET,
         DIALOGUE,
