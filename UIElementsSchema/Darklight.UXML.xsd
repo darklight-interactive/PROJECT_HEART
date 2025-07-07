@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:editor="UnityEditor.UIElements" xmlns:engine="UnityEngine.UIElements" xmlns="UnityEditor.Accessibility" elementFormDefault="qualified" targetNamespace="Darklight.UXML" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="UnityEngine.UIElements.xsd" namespace="UnityEngine.UIElements" />
+  <xs:simpleType name="ControlledLabel_rolling-text-percentage_Type">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ControlledLabel_font-size-percentage_Type">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="200" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ControlledLabel_text-align_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UpperLeft" />
+      <xs:enumeration value="UpperCenter" />
+      <xs:enumeration value="UpperRight" />
+      <xs:enumeration value="MiddleLeft" />
+      <xs:enumeration value="MiddleCenter" />
+      <xs:enumeration value="MiddleRight" />
+      <xs:enumeration value="LowerLeft" />
+      <xs:enumeration value="LowerCenter" />
+      <xs:enumeration value="LowerRight" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ControlledLabelType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Position" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="false" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="Inherit" name="language-direction" type="engine:VisualElement_language-direction_Type" use="optional" />
+        <xs:attribute default="" name="data-source" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-type" type="xs:string" use="optional" />
+        <xs:attribute default="New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well." name="full-text" type="xs:string" use="optional" />
+        <xs:attribute default="New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well." name="current-text" type="xs:string" use="optional" />
+        <xs:attribute default="1" name="rolling-text-percentage" xmlns:q1="Darklight.UXML" type="q1:ControlledLabel_rolling-text-percentage_Type" use="optional" />
+        <xs:attribute default="100" name="font-size-percentage" xmlns:q2="Darklight.UXML" type="q2:ControlledLabel_font-size-percentage_Type" use="optional" />
+        <xs:attribute default="UpperLeft" name="text-align" xmlns:q3="Darklight.UXML" type="q3:ControlledLabel_text-align_Type" use="optional" />
+        <xs:attribute default="32" name="padding" type="xs:int" use="optional" />
+        <xs:attribute default="" name="background-image" type="xs:string" use="optional" />
+        <xs:attribute default="RGBA(1.000, 1.000, 1.000, 1.000)" name="background-color" type="xs:string" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ControlledLabel" substitutionGroup="engine:VisualElement" xmlns:q4="Darklight.UXML" type="q4:ControlledLabelType" />
+  <xs:simpleType name="TextBubble_rolling-text-percentage_Type">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TextBubble_font-size-percentage_Type">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="200" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TextBubble_text-align_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UpperLeft" />
+      <xs:enumeration value="UpperCenter" />
+      <xs:enumeration value="UpperRight" />
+      <xs:enumeration value="MiddleLeft" />
+      <xs:enumeration value="MiddleCenter" />
+      <xs:enumeration value="MiddleRight" />
+      <xs:enumeration value="LowerLeft" />
+      <xs:enumeration value="LowerCenter" />
+      <xs:enumeration value="LowerRight" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TextBubble_origin-point_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TOP_LEFT" />
+      <xs:enumeration value="TOP_CENTER" />
+      <xs:enumeration value="TOP_RIGHT" />
+      <xs:enumeration value="CENTER_LEFT" />
+      <xs:enumeration value="CENTER" />
+      <xs:enumeration value="CENTER_RIGHT" />
+      <xs:enumeration value="BOTTOM_LEFT" />
+      <xs:enumeration value="BOTTOM_CENTER" />
+      <xs:enumeration value="BOTTOM_RIGHT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TextBubble_direction-point_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TOP_LEFT" />
+      <xs:enumeration value="TOP_CENTER" />
+      <xs:enumeration value="TOP_RIGHT" />
+      <xs:enumeration value="CENTER_LEFT" />
+      <xs:enumeration value="CENTER" />
+      <xs:enumeration value="CENTER_RIGHT" />
+      <xs:enumeration value="BOTTOM_LEFT" />
+      <xs:enumeration value="BOTTOM_CENTER" />
+      <xs:enumeration value="BOTTOM_RIGHT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TextBubbleType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Position" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="false" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="Inherit" name="language-direction" type="engine:VisualElement_language-direction_Type" use="optional" />
+        <xs:attribute default="" name="data-source" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-type" type="xs:string" use="optional" />
+        <xs:attribute default="New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well." name="full-text" type="xs:string" use="optional" />
+        <xs:attribute default="New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well." name="current-text" type="xs:string" use="optional" />
+        <xs:attribute default="1" name="rolling-text-percentage" xmlns:q5="Darklight.UXML" type="q5:TextBubble_rolling-text-percentage_Type" use="optional" />
+        <xs:attribute default="100" name="font-size-percentage" xmlns:q6="Darklight.UXML" type="q6:TextBubble_font-size-percentage_Type" use="optional" />
+        <xs:attribute default="UpperLeft" name="text-align" xmlns:q7="Darklight.UXML" type="q7:TextBubble_text-align_Type" use="optional" />
+        <xs:attribute default="32" name="padding" type="xs:int" use="optional" />
+        <xs:attribute default="" name="background-image" type="xs:string" use="optional" />
+        <xs:attribute default="RGBA(1.000, 1.000, 1.000, 1.000)" name="background-color" type="xs:string" use="optional" />
+        <xs:attribute default="" name="library" type="xs:string" use="optional" />
+        <xs:attribute default="CENTER" name="origin-point" xmlns:q8="Darklight.UXML" type="q8:TextBubble_origin-point_Type" use="optional" />
+        <xs:attribute default="CENTER" name="direction-point" xmlns:q9="Darklight.UXML" type="q9:TextBubble_direction-point_Type" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TextBubble" substitutionGroup="engine:VisualElement" xmlns:q10="Darklight.UXML" type="q10:TextBubbleType" />
+  <xs:complexType name="SelectableVisualElementType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Position" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="true" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="Inherit" name="language-direction" type="engine:VisualElement_language-direction_Type" use="optional" />
+        <xs:attribute default="" name="data-source" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-type" type="xs:string" use="optional" />
+        <xs:attribute default="false" name="selected" type="xs:boolean" use="optional" />
+        <xs:attribute default="false" name="disabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SelectableVisualElement" substitutionGroup="engine:VisualElement" xmlns:q11="Darklight.UXML" type="q11:SelectableVisualElementType" />
+  <xs:simpleType name="SelectableSlider_direction_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Horizontal" />
+      <xs:enumeration value="Vertical" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SelectableSliderType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Ignore" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="true" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="Inherit" name="language-direction" type="engine:VisualElement_language-direction_Type" use="optional" />
+        <xs:attribute default="" name="data-source" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-type" type="xs:string" use="optional" />
+        <xs:attribute default="" name="binding-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="label" type="xs:string" use="optional" />
+        <xs:attribute default="5" name="value" type="xs:float" use="optional" />
+        <xs:attribute default="false" name="fill" type="xs:boolean" use="optional" />
+        <xs:attribute default="0" name="low-value" type="xs:float" use="optional" />
+        <xs:attribute default="10" name="high-value" type="xs:float" use="optional" />
+        <xs:attribute default="0" name="page-size" type="xs:float" use="optional" />
+        <xs:attribute default="false" name="show-input-field" type="xs:boolean" use="optional" />
+        <xs:attribute default="Horizontal" name="direction" xmlns:q12="Darklight.UXML" type="q12:SelectableSlider_direction_Type" use="optional" />
+        <xs:attribute default="false" name="inverted" type="xs:boolean" use="optional" />
+        <xs:attribute default="0" name="min-value" type="xs:float" use="optional" />
+        <xs:attribute default="10" name="max-value" type="xs:float" use="optional" />
+        <xs:attribute default="1" name="step-size" type="xs:float" use="optional" />
+        <xs:attribute default="" name="background-image" type="xs:string" use="optional" />
+        <xs:attribute default="" name="fill-image" type="xs:string" use="optional" />
+        <xs:attribute default="" name="handle-image" type="xs:string" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SelectableSlider" substitutionGroup="engine:VisualElement" xmlns:q13="Darklight.UXML" type="q13:SelectableSliderType" />
+  <xs:complexType name="SelectableButtonType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enabled" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Position" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="true" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="Inherit" name="language-direction" type="engine:VisualElement_language-direction_Type" use="optional" />
+        <xs:attribute default="" name="data-source" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="data-source-type" type="xs:string" use="optional" />
+        <xs:attribute default="" name="binding-path" type="xs:string" use="optional" />
+        <xs:attribute default="" name="text" type="xs:string" use="optional" />
+        <xs:attribute default="true" name="enable-rich-text" type="xs:boolean" use="optional" />
+        <xs:attribute default="true" name="emoji-fallback-support" type="xs:boolean" use="optional" />
+        <xs:attribute default="false" name="parse-escape-sequences" type="xs:boolean" use="optional" />
+        <xs:attribute default="false" name="selectable" type="xs:boolean" use="optional" />
+        <xs:attribute default="true" name="double-click-selects-word" type="xs:boolean" use="optional" />
+        <xs:attribute default="true" name="triple-click-selects-line" type="xs:boolean" use="optional" />
+        <xs:attribute default="true" name="display-tooltip-when-elided" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="icon-image" type="xs:string" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SelectableButton" substitutionGroup="engine:VisualElement" xmlns:q14="Darklight.UXML" type="q14:SelectableButtonType" />
+</xs:schema>

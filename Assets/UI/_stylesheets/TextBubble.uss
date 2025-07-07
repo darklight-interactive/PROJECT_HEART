@@ -1,0 +1,3 @@
+.unity-label {
+    -unity-font-definition: resource('Fonts/digital_disco/DigitalDisco-Thin');
+}

@@ -1,0 +1,25 @@
+.fade-in {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 2s;
+}
+
+.fade-out {
+    transition-property: opacity;
+    transition-duration: 2s;
+}
+
+.wipe-open {
+    transition-duration: 2s, 1s;
+    transition-property: width, opacity;
+    transition-timing-function: ease, ease-in-out-cubic;
+    width: 0;
+    opacity: 0;
+}
+
+.wipe-close {
+    transition-duration: 2s, 1s;
+    width: 100%;
+    transition-property: width, opacity;
+    transition-timing-function: ease, ease-in-out-cubic;
+}

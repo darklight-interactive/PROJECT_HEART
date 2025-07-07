@@ -1,0 +1,115 @@
+VisualElement.StackBase {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 250px;
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+VisualElement.StackFile {
+    background-color: rgba(133, 109, 44, 0);
+    width: 256px;
+    height: 256px;
+    position: absolute;
+    transition-duration: 0.2s;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    align-items: auto;
+    justify-content: space-around;
+}
+
+VisualElement.StackFileSelect {
+}
+
+VisualElement.StackSelected {
+    position: absolute;
+    flex-grow: 1;
+    width: 210px;
+    height: 256px;
+    align-self: center;
+    bottom: auto;
+    background-color: rgba(188, 162, 0, 0);
+    top: 0;
+    left: 23px;
+    transition-duration: 0.2s;
+}
+
+VisualElement.StackTextHolder {
+    position: absolute;
+    top: 124px;
+    bottom: auto;
+    left: 38px;
+    width: 180px;
+    height: 118px;
+    background-color: rgba(115, 115, 115, 0);
+}
+
+VisualElement.StackTextHolderSelected {
+    color: rgb(214, 203, 0);
+    background-color: rgba(188, 162, 0, 0);
+    width: 190px;
+    height: 128px;
+    position: absolute;
+    bottom: auto;
+    right: auto;
+    top: 119px;
+    left: 33px;
+}
+
+VisualElement.StackPFP {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 64px;
+    height: 64px;
+    color: rgb(190, 190, 190);
+    background-color: rgb(168, 168, 168);
+}
+
+VisualElement.StackTextSelected {
+    background-color: rgba(188, 162, 0, 0);
+    width: 180px;
+    height: 30px;
+    align-self: center;
+    position: absolute;
+    top: 124px;
+    left: 38px;
+}
+
+Label.StackName {
+    position: absolute;
+    left: 130px;
+    top: -2px;
+    white-space: nowrap;
+    -unity-font-definition: url("project://database/Assets/[USER%20INTERFACE]/_fonts/pixelplay.ttf?fileID=12800000&guid=e2cb29917e71d184a9ea0469322749c1&type=3#pixelplay");
+    width: 64px;
+    height: 24px;
+    font-size: 24px;
+}
+
+Label.StackLocation {
+    position: absolute;
+    top: 30px;
+    left: 130px;
+    width: 64px;
+    height: 24px;
+    font-size: 24px;
+    -unity-font-definition: url("project://database/Assets/[USER%20INTERFACE]/_fonts/pixelplay.ttf?fileID=12800000&guid=e2cb29917e71d184a9ea0469322749c1&type=3#pixelplay");
+}
+
+Label.StackText {
+    position: absolute;
+    transition-duration: 0.15s;
+    flex-wrap: wrap;
+    max-width: 128px;
+    max-height: 30px;
+    width: 128px;
+    height: 30px;
+    white-space: normal;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    -unity-text-align: middle-center;
+}

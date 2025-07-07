@@ -1,0 +1,22 @@
+{
+    "name": "Darklight.UXML",
+    "rootNamespace": "Darklight.UXML",
+    "references": [
+        "Darklight.Utility",
+        "Darklight.Editor",
+        "NaughtyAttributes.Core",
+        "NaughtyAttributes.Editor",
+        "Darklight.World",
+        "Darklight.Grid",
+        "Darklight.Collections"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

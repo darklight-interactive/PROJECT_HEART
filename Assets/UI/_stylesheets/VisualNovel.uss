@@ -1,0 +1,117 @@
+.unity-text-element {
+    white-space: normal;
+    -unity-font-definition: resource('Fonts/cour');
+}
+
+.active {
+}
+
+.inactive {
+    -unity-background-image-tint-color: rgb(178, 178, 178);
+}
+
+.character-container {
+    flex-grow: 1;
+    max-width: 750px;
+    flex-direction: row;
+    transition-property: translate, rotate;
+    transition-timing-function: ease-in-out-sine, ease-in-out-circ;
+    transition-duration: 1s, 0.25s;
+}
+
+#character-control-misra.character-container.active {
+    width: 1024px;
+    translate: 10% 0;
+    rotate: 5deg;
+}
+
+#character-control-lupe.character-container.active {
+    width: 1024px;
+    translate: -10% 0;
+    rotate: -5deg;
+}
+
+.character-image {
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s, 1s, 1s;
+    transition-timing-function: ease-in-out-sine, ease-in-out-sine, ease-in-out-sine;
+    transition-property: scale, translate, rotate;
+    flex-grow: 1;
+    align-self: auto;
+}
+
+.character-image.inactive {
+}
+
+.character-image.active {
+    transform-origin: bottom;
+    scale: 1.25 1.25;
+    align-self: auto;
+}
+
+.choice-button {
+    background-image: url("project://database/Assets/[SPRITES]/_ui/mtr_choicebox_atlas.png?fileID=270411263279360818&guid=2e4892fab6b6a8d46a90fdc4c3a66701&type=3#mtr_choice_box_atlas_1");
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-image-tint-color: rgb(229, 229, 229);
+    -unity-font-definition: resource('Fonts/cour');
+    color: rgb(0, 0, 0);
+    justify-content: center;
+    transition-duration: 500ms, 200ms, 200ms, 200ms;
+    -unity-font-style: bold;
+    align-items: stretch;
+    transition-property: all, font-size, rotate, translate;
+    transition-timing-function: ease, ease, ease-in-out-sine, ease;
+    align-self: center;
+    font-size: 150%;
+    transition-delay: 0s, 25ms, 50ms, 50ms;
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    padding-bottom: 65px;
+    padding-top: 45px;
+    padding-right: 45px;
+    padding-left: 45px;
+    white-space: normal;
+    text-overflow: clip;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+.choice-button.selected {
+    scale: 1.2 1.2;
+    background-image: url("project://database/Assets/[SPRITES]/_ui/mtr_choicebox_atlas.png?fileID=270411263279360818&guid=2e4892fab6b6a8d46a90fdc4c3a66701&type=3#mtr_choice_box_atlas_1");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    rotate: -4deg;
+    translate: 25% 0;
+}
+
+.choice-button.disabled {
+    scale: 0.25 0.25;
+    opacity: 0;
+    display: flex;
+}
+
+.nametag {
+    background-image: url("project://database/Assets/[SPRITES]/_datingSim/ds_nametag_Lupe.png?fileID=2800000&guid=12a5a6409b96292448a07792472dd32f&type=3#ds_nametag_Lupe");
+    height: 100px;
+    width: 300px;
+    align-self: flex-start;
+    -unity-background-scale-mode: scale-and-crop;
+    flex-grow: 0;
+}
+
+.cinema-bar {
+    flex-grow: 0;
+    background-color: rgb(0, 0, 0);
+    align-self: stretch;
+    position: relative;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    justify-content: flex-start;
+}

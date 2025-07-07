@@ -8,12 +8,16 @@ namespace ProjectHeart
     {
         void Start()
         {
-            GlobalInputReader.PlayerInput.Interact += HandleInteractInput;
+            if (GlobalInputReader.Instance != null)
+                GlobalInputReader.PlayerInput.Interact += HandleInteractInput;
+            else
+                Debug.LogError("CharacterInteractor :: GlobalInputReader could not be found", this);
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
-            GlobalInputReader.PlayerInput.Interact -= HandleInteractInput;
+            if (GlobalInputReader.Instance != null)
+                GlobalInputReader.PlayerInput.Interact -= HandleInteractInput;
         }
 
         void HandleInteractInput()

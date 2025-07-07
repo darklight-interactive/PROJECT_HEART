@@ -1,0 +1,4 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/[USER%20INTERFACE]/_stylesheets/SceneTransition.uss?fileID=7433441132597879392&amp;guid=9226f4708a1a1a14e90e56c0a43a55d4&amp;type=3#SceneTransition" />
+    <ScreenTransition type-key="WipeOpen" screen-alignment="Left" />
+</engine:UXML>

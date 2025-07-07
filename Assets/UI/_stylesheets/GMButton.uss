@@ -1,0 +1,6 @@
+Button.gmbutton {
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-sine;
+    background-color: rgb(100, 100, 100);
+    color: rgb(0, 0, 0);
+}

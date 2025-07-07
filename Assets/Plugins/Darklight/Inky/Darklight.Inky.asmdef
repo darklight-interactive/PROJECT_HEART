@@ -1,0 +1,19 @@
+{
+    "name": "Darklight.Inky",
+    "rootNamespace": "",
+    "references": [
+        "GUID:58bed0e7c5306824586d7eda03609289",
+        "GUID:c5408d0a97cf4446cafe6f414bcaa9ec",
+        "GUID:f9b6992260911d54a831009fa40ae51b",
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
