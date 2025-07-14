@@ -5,7 +5,7 @@
 			<value>lightOrbPickup</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{160e15b2-3b06-4dcd-bd53-15d562cd1dc7}</destination>
@@ -118,6 +118,7 @@
 	<object class="MixerBusEffectChain" id="{ad7c92cb-e31a-486d-8dff-5f70fc927be5}">
 		<relationship name="effects">
 			<destination>{b9d963fc-8d1e-4bed-8a9f-24c578e743a9}</destination>
+			<destination>{6258800c-2172-4b59-b196-daf27ffe0160}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{63296db8-ccaf-471d-bb01-c6a563f98f4b}" />
@@ -140,6 +141,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{a34b893f-0495-479d-bc18-5188898ee423}" />
 	<object class="MixerBusFader" id="{b9d963fc-8d1e-4bed-8a9f-24c578e743a9}" />
+	<object class="SpatialiserEffect" id="{6258800c-2172-4b59-b196-daf27ffe0160}" />
 	<object class="SingleSound" id="{8c9d3876-58ff-4b3e-8f13-2dd6a1f4ac8d}">
 		<relationship name="audioFile">
 			<destination>{ab507920-ba11-4158-b691-9c28de20c2f2}</destination>

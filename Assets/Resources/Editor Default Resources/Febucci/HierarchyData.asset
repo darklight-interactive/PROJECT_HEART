@@ -27,7 +27,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   separator:
     enabled: 1
-    startString: '>>>'
+    startString: 
     color: {r: 0, g: 1, b: 1, a: 1}
   tree:
     enabled: 1
@@ -35,9 +35,9 @@ MonoBehaviour:
     dividerHeigth: 3
     baseLevelColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     branches:
-    - overlayColor: {r: 1, g: 0.44, b: 0.97, a: 0.11372549}
+    - overlayColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 0.11372549}
       colors:
-      - {r: 0.56, g: 0.44, b: 1, a: 1}
+      - {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
       - {r: 0.44, g: 0.71, b: 1, a: 1}
       - {r: 0.19, g: 0.53, b: 0.78, a: 1}
     - overlayColor: {r: 1, g: 0.73324853, b: 0, a: 0.07450981}
