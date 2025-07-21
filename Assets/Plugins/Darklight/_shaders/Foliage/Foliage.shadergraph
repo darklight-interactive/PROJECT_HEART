@@ -802,6 +802,9 @@
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": false,
+    "m_DisableTint": false,
+    "m_AdditionalMotionVectorMode": 0,
+    "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
@@ -2878,8 +2881,8 @@
     "m_ObjectId": "d5468934e31a4606b7a61fb967254702",
     "m_Title": "Color Grade",
     "m_Position": {
-        "x": -699.00048828125,
-        "y": 94.00022888183594
+        "x": -699.0,
+        "y": 94.00006866455078
     }
 }
 
