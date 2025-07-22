@@ -19,12 +19,13 @@
       "hash": "c0e23661b9e3e48d935e2011637688eead7aa46f"
     },
     "com.darklight.core": {
-      "version": "file:com.darklight.unityext.core",
+      "version": "https://github.com/darklight-interactive/com.darklight.unityext.core.git",
       "depth": 0,
-      "source": "embedded",
+      "source": "git",
       "dependencies": {
         "com.dbrizov.naughtyattributes": "2.1.4"
-      }
+      },
+      "hash": "e6fd46bc5c75a9c2b74743ab3105138cf2d6cc32"
     },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
