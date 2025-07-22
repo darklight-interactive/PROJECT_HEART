@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+
 namespace ProjectHeart
 {
     public class BossStateMachine : MonoBehaviour
@@ -37,6 +38,8 @@ namespace ProjectHeart
         [Header("Phases")]
         [SerializeField] private float attackDuration;
         [SerializeField] private BOSS_PHASES currentPhase;
+
+        [SerializeField] private ParticleSystem particle;
 
 
         public UnityEvent OnHurt;
@@ -91,7 +94,7 @@ namespace ProjectHeart
             // Check Health
             // Update to appropriate state
 
-            UpdateState();
+            // UpdateState();
 
 
             // if (isBeingAttacked)
@@ -100,13 +103,41 @@ namespace ProjectHeart
             //     HandleOnHurt();
 
             // }
-            Debug.Log($"Health {Health}");
+            // Debug.Log($"Health {Health}");
 
         }
 
         void FixedUpdate()
         {
-            
+            MoveTowardsPlayer();
+            RotateTowardsPlayer();
+
+        }
+
+        private void MoveTowardsPlayer()
+        {
+
+            Vector3 targetPosition = Player.gameObject.transform.position;
+
+            float singleStep = bossStats.Speed * Time.fixedDeltaTime;
+            if (Vector3.Distance(transform.position, targetPosition) > 3.5f)
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, singleStep);
+
+
+
+        }
+
+        private void RotateTowardsPlayer()
+        {
+            // Rotate toward player move to player
+            Vector3 directionToPlayer = Player.transform.position - transform.position;
+            if (directionToPlayer != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                float singleStep = 100f * Time.fixedDeltaTime;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, singleStep);
+            }
+
         }
 
 
@@ -164,6 +195,13 @@ namespace ProjectHeart
         {
             hurtSfx.Stop();
             hurtSfx.Play();
+        }
+
+        public void ParticlePlay()
+        {
+            Debug.Log("Particle Played!");
+
+            particle.Play();
         }
         void OnDrawGizmosSelected()
         {

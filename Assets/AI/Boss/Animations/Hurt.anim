@@ -52,7 +52,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.r
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -91,7 +91,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.g
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -130,7 +130,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.b
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -169,7 +169,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.a
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -182,7 +182,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 4060075842
+      path: 752290243
       attribute: 1136458424
       script: {fileID: 0}
       typeID: 23
@@ -191,7 +191,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 4060075842
+      path: 752290243
       attribute: 1404893880
       script: {fileID: 0}
       typeID: 23
@@ -200,7 +200,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 4060075842
+      path: 752290243
       attribute: 1673329336
       script: {fileID: 0}
       typeID: 23
@@ -209,7 +209,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 4060075842
+      path: 752290243
       attribute: 1941764792
       script: {fileID: 0}
       typeID: 23
@@ -274,7 +274,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.r
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -313,7 +313,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.g
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -352,7 +352,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.b
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
@@ -391,7 +391,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._BaseColor.a
-    path: Geomtry
+    path: '[Geomtry]'
     classID: 23
     script: {fileID: 0}
     flags: 0
