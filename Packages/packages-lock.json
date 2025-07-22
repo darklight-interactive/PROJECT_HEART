@@ -25,7 +25,7 @@
       "dependencies": {
         "com.dbrizov.naughtyattributes": "2.1.4"
       },
-      "hash": "df06cd0fa4de84e64e5c83a76e5e53f90926f0f0"
+      "hash": "e6fd46bc5c75a9c2b74743ab3105138cf2d6cc32"
     },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",

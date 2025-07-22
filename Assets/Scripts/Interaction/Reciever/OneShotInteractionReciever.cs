@@ -7,6 +7,8 @@ namespace ProjectHeart.Interaction
     /// </summary>
     public class OneShotInteractionReciever : BaseInteractionReciever
     {
+        public override InteractionType InteractionType => InteractionType.ONE_SHOT;
+
         public UnityEvent OnInteraction;
 
         public override void OnAcceptTarget() { }

@@ -10,6 +10,8 @@ namespace ProjectHeart.Interaction
     /// </summary>
     public class ToggleInteractionReciever : BaseInteractionReciever
     {
+        public override InteractionType InteractionType => InteractionType.TOGGLE;
+
         [SerializeField, ReadOnly]
         bool _isOn = false;
 
