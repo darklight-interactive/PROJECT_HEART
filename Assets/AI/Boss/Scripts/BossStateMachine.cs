@@ -1,7 +1,7 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
 namespace ProjectHeart
 {
     public class BossStateMachine : MonoBehaviour
@@ -9,17 +9,26 @@ namespace ProjectHeart
         private enum BOSS_PHASES { START, PHASE_01, PHASE_02, PHASE_03, DEAD }
 
         [Header("Refrences")]
+
         [SerializeField] private GameObject Player;
 
         [Header("Stats")]
         [SerializeField] private BossStats bossStats;
 
 
-
         [Header("RigidBody")]
         [SerializeField] private Rigidbody rb;
 
-        [Header("Animator")] private Animator animator;
+        [Header("Animator")]
+        [SerializeField] private Animator animator;
+
+
+        [Header("RayCast")]
+
+        [SerializeField] private Ray playerRay;
+        [SerializeField] private LayerMask playerLayer;
+
+        [SerializeField] private Vector3 direction;
 
         [Header("UI/UX")]
 
@@ -29,11 +38,14 @@ namespace ProjectHeart
         [SerializeField] private float attackDuration;
         [SerializeField] private BOSS_PHASES currentPhase;
 
+
         public UnityEvent OnHurt;
         public UnityEvent PHASE_01;
         public UnityEvent PHASE_02;
         public UnityEvent PHASE_03;
         public UnityEvent OnDeath;
+
+
 
 
         private float health;
@@ -51,17 +63,20 @@ namespace ProjectHeart
                     bossSlider.maxValue = health;
                 }
                 bossSlider.value = health;
+
             }
         }
 
 
-        bool isKeyPressed;
-
+        public bool isBeingAttacked = true;
+        public AudioSource hurtSfx;
 
         void Awake()
         {
             currentPhase = BOSS_PHASES.START;
-            health = bossStats.Health;
+            Health = bossStats.Health;
+            rb = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
 
         }
 
@@ -75,13 +90,23 @@ namespace ProjectHeart
         {
             // Check Health
             // Update to appropriate state
-            
+
             UpdateState();
+
+
+            // if (isBeingAttacked)
+            // {
+            //     Health -= .5f * Time.deltaTime;
+            //     HandleOnHurt();
+
+            // }
+            Debug.Log($"Health {Health}");
+
         }
 
         void FixedUpdate()
         {
-
+            
         }
 
 
@@ -127,5 +152,24 @@ namespace ProjectHeart
 
         // #region Movement
         // #endregion
+
+        public void HandleOnHurt()
+        {
+
+            animator.SetTrigger("Hurt");
+            return;
+        }
+
+        public void PlayHurtSFX()
+        {
+            hurtSfx.Stop();
+            hurtSfx.Play();
+        }
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, direction);
+
+        }
     }
 }
