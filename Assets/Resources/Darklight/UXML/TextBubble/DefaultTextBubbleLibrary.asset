@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f776cb7f5a6d6c419f1e51094a3260f, type: 3}
+  m_Name: DefaultTextBubbleLibrary
+  m_EditorClassIdentifier: 
+  _dataLibrary:
+    _dictionaryItems:
+    - _id: 1
+      _value: {fileID: -403090033, guid: 2023d1381b2b58e44aa308035ef06560, type: 3}
+      _key: 0
+    - _id: 2
+      _value: {fileID: 2017392915, guid: 2023d1381b2b58e44aa308035ef06560, type: 3}
+      _key: 2
+    - _id: 3
+      _value: {fileID: -1100599255251796164, guid: 2023d1381b2b58e44aa308035ef06560, type: 3}
+      _key: 4
+    - _id: 4
+      _value: {fileID: -1488740734, guid: 2023d1381b2b58e44aa308035ef06560, type: 3}
+      _key: 6
+    - _id: 5
+      _value: {fileID: 1983891681, guid: 2023d1381b2b58e44aa308035ef06560, type: 3}
+      _key: 8

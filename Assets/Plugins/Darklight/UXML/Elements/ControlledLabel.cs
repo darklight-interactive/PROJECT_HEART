@@ -14,18 +14,18 @@ namespace Darklight.UXML
     public partial class ControlledLabel : VisualElement
     {
         const string TAG = "controlledLabel";
-        const string PATH_TO_DEFAULTBKG =
-            "Assets/Plugins/Darklight/_textures/DRKL_TextBubble_Default_0.png";
+
+        const string DEFAULT_TEXT =
+            "New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well.";
 
         VisualElement _labelContainer;
         Label _label;
         Sprite _backgroundImage;
 
-        string _fullText =
-            "New UXML Element Controlled Label. This is a test string to see how the text wraps around the bubble. Hopefully it works well.";
+        string _fullText = DEFAULT_TEXT;
         float _rollingTextPercentValue = 1;
         int _currentIndex;
-        int _fontSizePercent = 100;
+        int _fontSize = 32;
         int _padding = 32;
 
         protected VisualElement labelContainer
@@ -70,13 +70,13 @@ namespace Darklight.UXML
 
         [Header("(( Text Style )) ---- >>")]
         [UxmlAttribute, Range(0, 200)]
-        public int FontSizePercentage
+        public int FontSize
         {
-            get { return _fontSizePercent; }
+            get { return _fontSize; }
             set
             {
-                _fontSizePercent = value;
-                label.style.fontSize = Length.Percent(_fontSizePercent);
+                _fontSize = value;
+                label.style.fontSize = _fontSize;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Darklight.UXML
             _labelContainer.Add(label);
             this.Add(_labelContainer);
 
-            label.style.fontSize = _fontSizePercent;
+            label.style.fontSize = _fontSize;
         }
 
         public void SetFullText(string text)
@@ -192,7 +192,5 @@ namespace Darklight.UXML
         {
             SetTextToIndex(FullText.Length);
         }
-
-        public class ControlledSizeLabelFactory : UxmlFactory<ControlledLabel> { }
     }
 }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5990594664a1e914fa1fb97a01dcde4f, type: 3}
   m_Name: Default_RenderTexturePreset
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 5d93726150f2d264e83e646e1eb1f014, type: 2}
-  renderTexture: {fileID: 8400000, guid: e7ee34e8fb65d8548a8b02bafb328c7f, type: 2}
+  renderTextureAsset: {fileID: 8400000, guid: e7ee34e8fb65d8548a8b02bafb328c7f, type: 2}
+  panelWidth: 2187
+  panelHeight: 1797
+  panelScale: 3.54
+  pixelsPerUnit: 500

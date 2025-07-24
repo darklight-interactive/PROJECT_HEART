@@ -3,6 +3,7 @@ using System.Linq;
 using Darklight.Core2D;
 using Darklight.Editor;
 using Darklight.UXML;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
 #if UNITY_EDITOR
@@ -14,12 +15,22 @@ namespace Darklight.UXML
     public class TextBubbleObject : UXML_RenderTextureObject
     {
         TextBubble _textBubble;
-
-        readonly string DEFAULT_TEXT =
-            "This is a test string to see how the text wraps around the bubble. Hopefully it works well.";
-
-        [SerializeField, ShowOnly]
         string _currText;
+
+        [SerializeField, Required]
+        [CreateAsset("NewTextBubbleLibrary", "Assets/Resources/Darklight/UXML/TextBubble")]
+        TextBubbleLibrary _textBubbleLibrary;
+
+        [Header("Bubble Alignment")]
+        public Spatial2D.AnchorPoint originPoint;
+        public Spatial2D.AnchorPoint directionPoint;
+        public int padding = 32;
+
+        [Header("Text Values")]
+        public int fontSize = 32;
+
+        [Range(0, 1)]
+        public float rollingTextPercentage;
 
         private bool _isTransitioning = false;
 
@@ -32,6 +43,12 @@ namespace Darklight.UXML
             Root.style.alignSelf = Align.Stretch;
 
             _textBubble = ElementQuery<TextBubble>();
+            _textBubble.Library = _textBubbleLibrary;
+            _textBubble.AlignBubble(originPoint, directionPoint);
+            _textBubble.Padding = padding;
+
+            _textBubble.FontSize = fontSize;
+            _textBubble.RollingTextPercentage = rollingTextPercentage;
 
             // Register for text change event
             _textBubble.RegisterCallback<ChangeEvent<string>>(evt =>
