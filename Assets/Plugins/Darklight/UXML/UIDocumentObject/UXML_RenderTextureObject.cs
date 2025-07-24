@@ -26,24 +26,12 @@ namespace Darklight.UXML
         RenderTexture _backBuffer;
         RenderTexture _frontBuffer;
 
-        [SerializeField, Required]
-        private RenderTexture _renderTextureAsset;
-
-        [SerializeField]
-        private Settings _settings = new();
-
-        void Start()
-        {
-            Initialize();
-        }
-
-        protected override void OnEditorReloaded()
-        {
-#if UNITY_EDITOR
-            if (_settings.destroyOnEditorReload)
-                DestroyImmediate(this.gameObject);
-#endif
-        }
+        [SerializeField, Required, Expandable]
+        [CreateAsset(
+            "NewRenderTextureObjectSettings",
+            "Assets/Resources/Darklight/UXML/UIDocumentObject/RenderTextureObject"
+        )]
+        UXML_RenderTextureObjectSettings _settings;
 
         public override void Initialize()
         {
@@ -57,7 +45,7 @@ namespace Darklight.UXML
                 _meshFilter.sharedMesh = GetQuadMesh();
 
             // < CREATE RENDER TEXTURE > //
-            CreateRenderTexture(_renderTextureAsset.descriptor, out _renderTexture);
+            CreateRenderTexture(out _renderTexture);
             CreateMaterial(out _material);
 
             // < SET VALUES > //
@@ -65,24 +53,16 @@ namespace Darklight.UXML
             SetMaterialToRenderer();
             SetPanelSize();
 
+            /* !DOUBLE BUFFERING !
             // Initialize front and back buffers
-            if (_renderTexture == null)
-                return;
-
-            // Pick a safe format for this platform
-            var safeFormat = GetSupportedRenderTextureFormat();
-            _backBuffer = new RenderTexture(_renderTexture)
-            {
-                format = safeFormat,
-                enableRandomWrite = false
-            };
-            _frontBuffer = new RenderTexture(_renderTexture)
-            {
-                format = safeFormat,
-                enableRandomWrite = false
-            };
+            CreateRenderTexture(out _backBuffer);
+            CreateRenderTexture(out _frontBuffer);
+            */
         }
 
+        /// <summary>
+        /// Initialize the mesh renderer.
+        /// </summary>
         void InitializeMeshRenderer()
         {
             _meshRenderer = this.gameObject.GetOrAdd<MeshRenderer>();
@@ -94,6 +74,26 @@ namespace Darklight.UXML
             _meshRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
         }
 
+        /// <summary>
+        /// Create a new render texture with the specified width and height and apply the supported format.
+        /// </summary>
+        void CreateRenderTexture(out RenderTexture renderTexture)
+        {
+            RenderTextureDescriptor descriptor = _settings.renderTextureAsset.descriptor;
+            descriptor.width = _settings.panelWidth;
+            descriptor.height = _settings.panelHeight;
+
+            renderTexture = new RenderTexture(descriptor)
+            {
+                name = $"{name} - RenderTexture",
+                format = GetSupportedRenderTextureFormat(),
+                enableRandomWrite = false
+            };
+        }
+
+        /// <summary>
+        /// Create a new material with the specified shader and set the main texture to the render texture.
+        /// </summary>
         void CreateMaterial(out Material material)
         {
             string shaderName =
@@ -102,16 +102,9 @@ namespace Darklight.UXML
             material.SetTexture(MainTex, _renderTexture);
         }
 
-        void CreateRenderTexture(
-            RenderTextureDescriptor descriptor,
-            out RenderTexture renderTexture
-        )
-        {
-            descriptor.width = _settings.panelWidth;
-            descriptor.height = _settings.panelHeight;
-            renderTexture = new RenderTexture(descriptor) { name = $"{name} - RenderTexture" };
-        }
-
+        /// <summary>
+        /// Apply unique settings to the panel settings asset. Set the target texture to the render texture.
+        /// </summary>
         void SetPanelSettings()
         {
             PanelSettings.targetTexture = _renderTexture;
@@ -120,6 +113,9 @@ namespace Darklight.UXML
             PanelSettings.scale = _settings.panelScale;
         }
 
+        /// <summary>
+        /// Set the material to the mesh renderer.
+        /// </summary>
         void SetMaterialToRenderer()
         {
             if (_meshRenderer != null)
@@ -128,6 +124,9 @@ namespace Darklight.UXML
             }
         }
 
+        /// <summary>
+        /// Set the size of the panel based on the panelWidth, panelHeight, and pixelsPerUnit.
+        /// </summary>
         void SetPanelSize()
         {
             if (
@@ -153,6 +152,7 @@ namespace Darklight.UXML
             );
         }
 
+        /* !DOUBLE BUFFERING !
         void FixedUpdate()
         {
             // Only call TextureUpdate if necessary
@@ -223,6 +223,7 @@ namespace Darklight.UXML
             _frontBuffer = _backBuffer;
             _backBuffer = temp;
         }
+        */
 
         public void Destroy()
         {
@@ -281,29 +282,5 @@ namespace Darklight.UXML
             );
         }
 #endif
-
-        [System.Serializable]
-        public class Settings
-        {
-            [Tooltip("Should this object be destroyed when the editor is reloded")]
-            public bool destroyOnEditorReload = true;
-
-            [Header("Panel Configuration")]
-            [Tooltip("Width of the panel in pixels.")]
-            [Range(1, 4000)]
-            public int panelWidth = 1280;
-
-            [Tooltip("Height of the panel in pixels.")]
-            [Range(1, 4000)]
-            public int panelHeight = 720;
-
-            [Tooltip("Scale of the panel (like zoom in a browser).")]
-            [Range(0.01f, 10.0f)]
-            public float panelScale = 1.0f;
-
-            [Tooltip("Pixels per world unit. Determines the real-world size of the panel.")]
-            [Range(1, 1000)]
-            public float pixelsPerUnit = 500.0f;
-        }
     }
 }

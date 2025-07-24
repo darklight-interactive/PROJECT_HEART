@@ -152,6 +152,11 @@ namespace Darklight.UXML
             Root.visible = IsVisible;
         }
 
+        /// <summary>
+        /// Copy the panel settings from the source to the destination.
+        /// </summary>
+        /// <param name="source">The source panel settings to copy from.</param>
+        /// <param name="destination">The destination panel settings to copy to.</param>
         private void CopyPanelSettings(PanelSettings source, PanelSettings destination)
         {
             // Scale and Resolution Settings

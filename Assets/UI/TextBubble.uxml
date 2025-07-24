@@ -1,3 +1,3 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Darklight.UXML.TextBubble font-size-percentage="200" />
+    <Darklight.UXML.TextBubble font-size-percentage="100" background-image="project://database/Assets/Plugins/Darklight/UXML/Textures/DRKL_TextBubble_Default_0.png?fileID=21300000&amp;guid=c52a5040b61d5d9419db5c6ede31d805&amp;type=3#DRKL_TextBubble_Default_0" padding="64" style="visibility: visible;" />
 </engine:UXML>
