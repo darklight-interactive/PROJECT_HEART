@@ -67,9 +67,7 @@ namespace Darklight.UXML
         ///
         public static T CreateUXMLRenderTextureObject<T>(
             UXML_UIDocumentPreset preset,
-            Material material,
-            RenderTexture renderTexture,
-            bool clonePanelSettings = false
+            RenderTexture renderTextureAsset
         )
             where T : UXML_RenderTextureObject
         {
@@ -80,12 +78,7 @@ namespace Darklight.UXML
 
             //go.hideFlags = HideFlags.NotEditable;
             T renderTextureObject = go.AddComponent<T>();
-            renderTextureObject.Initialize(
-                preset,
-                new Material(material),
-                new RenderTexture(renderTexture),
-                clonePanelSettings
-            );
+            renderTextureObject.Initialize(preset);
             return renderTextureObject;
         }
     }

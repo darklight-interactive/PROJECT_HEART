@@ -23,9 +23,9 @@ namespace Darklight.UXML
 
         private bool _isTransitioning = false;
 
-        protected override void OnInitialized()
+        public override void Initialize()
         {
-            base.OnInitialized();
+            base.Initialize();
 
             Root.style.flexGrow = 1;
             Root.style.flexDirection = FlexDirection.Column;

@@ -8,7 +8,8 @@
         "NaughtyAttributes.Editor",
         "Darklight.World",
         "Darklight.Grid",
-        "Darklight.Collections"
+        "Darklight.Collections",
+        "UnityUtils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

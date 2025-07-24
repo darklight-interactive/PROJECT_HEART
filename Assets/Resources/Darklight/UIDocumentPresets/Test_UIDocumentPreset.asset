@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Test_UIDocumentPreset
   m_EditorClassIdentifier: 
   visualTreeAsset: {fileID: 9197481963319205126, guid: a87f3a30f4694a147b2b6bef711a1376, type: 3}
-  panelSettings: {fileID: 11400000, guid: 39ae907e8646349c5bd0d19c14b2271a, type: 2}
+  panelSettings: {fileID: 11400000, guid: 9b3a92b9a918eea40b11e9a8e06da64b, type: 2}

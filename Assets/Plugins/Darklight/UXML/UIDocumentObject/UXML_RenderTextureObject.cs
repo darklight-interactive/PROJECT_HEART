@@ -2,6 +2,9 @@ using System.Collections;
 using Darklight.Editor;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
+using UnityUtils;
 
 namespace Darklight.UXML
 {
@@ -10,20 +13,24 @@ namespace Darklight.UXML
     /// </summary>
     public class UXML_RenderTextureObject : UXML_UIDocumentObject, IUnityEditorListener
     {
-        private GameObject _quad;
-        private MeshRenderer _meshRenderer;
-        private Material _material;
-        private RenderTexture _renderTexture;
-        private RenderTexture _backBuffer;
-        private RenderTexture _frontBuffer;
-        private Material _materialInstance;
+        const string k_transparentShader = "Unlit/Transparent";
+        const string k_textureShader = "Unlit/Texture";
+        const string k_mainTex = "_MainTex";
+        static readonly int MainTex = Shader.PropertyToID(k_mainTex);
 
-        [SerializeField, Expandable]
-        [CreateAsset("NewRenderTexturePreset", "Assets/Resources/Darklight/UXML/")]
-        private UXML_RenderTexturePreset _renderTexturePreset;
+        MeshRenderer _meshRenderer;
+        MeshFilter _meshFilter;
+
+        Material _material;
+        RenderTexture _renderTexture;
+        RenderTexture _backBuffer;
+        RenderTexture _frontBuffer;
+
+        [SerializeField, Required]
+        private RenderTexture _renderTextureAsset;
 
         [SerializeField]
-        private bool _destroyOnEditorReload = true;
+        private Settings _settings = new();
 
         void Start()
         {
@@ -33,55 +40,30 @@ namespace Darklight.UXML
         protected override void OnEditorReloaded()
         {
 #if UNITY_EDITOR
-            if (_destroyOnEditorReload)
+            if (_settings.destroyOnEditorReload)
                 DestroyImmediate(this.gameObject);
 #endif
         }
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
-
         public override void Initialize()
         {
-            Initialize(
-                Preset,
-                new Material(_renderTexturePreset.material),
-                new RenderTexture(_renderTexturePreset.renderTexture),
-                true
-            );
-        }
+            // < INITIALIZE BASE > //
+            base.Initialize();
 
-        public void Initialize(
-            UXML_UIDocumentPreset preset,
-            Material material,
-            RenderTexture renderTexture,
-            bool clonePanelSettings = false
-        )
-        {
-            _material = material;
-            _renderTexture = renderTexture;
-            base.Initialize(preset, clonePanelSettings);
+            // < INITIALIZE COMPONENTS > //
+            InitializeMeshRenderer();
+            _meshFilter = gameObject.GetOrAdd<MeshFilter>();
+            if (_meshFilter.sharedMesh == null)
+                _meshFilter.sharedMesh = GetQuadMesh();
 
-            // Create a quad mesh child
-            if (_quad == null || _meshRenderer == null)
-            {
-                // Destroy all children
-                foreach (Transform child in this.transform)
-                {
-                    DestroyImmediate(child.gameObject);
-                }
+            // < CREATE RENDER TEXTURE > //
+            CreateRenderTexture(_renderTextureAsset.descriptor, out _renderTexture);
+            CreateMaterial(out _material);
 
-                // Create a new quad
-                _quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                _quad.transform.SetParent(this.transform);
-                _quad.transform.localPosition = Vector3.zero;
-                _meshRenderer = _quad.GetComponent<MeshRenderer>();
-
-                gameObject.layer = LayerMask.NameToLayer("UI");
-                _quad.layer = LayerMask.NameToLayer("UI");
-            }
+            // < SET VALUES > //
+            SetPanelSettings();
+            SetMaterialToRenderer();
+            SetPanelSize();
 
             // Initialize front and back buffers
             if (_renderTexture == null)
@@ -99,19 +81,79 @@ namespace Darklight.UXML
                 format = safeFormat,
                 enableRandomWrite = false
             };
-
-            // Create a new material instance
-            _materialInstance = new Material(_material);
-
-            // Assign the front buffer to the panel settings and material initially
-            Document.panelSettings.targetTexture = _frontBuffer;
-            _materialInstance.mainTexture = _frontBuffer;
-
-            // Assign the material to the mesh renderer
-            _meshRenderer.sharedMaterial = _materialInstance;
         }
 
-        public void FixedUpdate()
+        void InitializeMeshRenderer()
+        {
+            _meshRenderer = this.gameObject.GetOrAdd<MeshRenderer>();
+            _meshRenderer.sharedMaterial = null;
+            _meshRenderer.shadowCastingMode = ShadowCastingMode.Off;
+            _meshRenderer.receiveShadows = false;
+            _meshRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
+            _meshRenderer.lightProbeUsage = LightProbeUsage.Off;
+            _meshRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
+        }
+
+        void CreateMaterial(out Material material)
+        {
+            string shaderName =
+                PanelSettings.colorClearValue.a < 1.0f ? k_transparentShader : k_textureShader;
+            material = new Material(Shader.Find(shaderName));
+            material.SetTexture(MainTex, _renderTexture);
+        }
+
+        void CreateRenderTexture(
+            RenderTextureDescriptor descriptor,
+            out RenderTexture renderTexture
+        )
+        {
+            descriptor.width = _settings.panelWidth;
+            descriptor.height = _settings.panelHeight;
+            renderTexture = new RenderTexture(descriptor) { name = $"{name} - RenderTexture" };
+        }
+
+        void SetPanelSettings()
+        {
+            PanelSettings.targetTexture = _renderTexture;
+            PanelSettings.clearColor = true;
+            PanelSettings.scaleMode = PanelScaleMode.ConstantPixelSize;
+            PanelSettings.scale = _settings.panelScale;
+        }
+
+        void SetMaterialToRenderer()
+        {
+            if (_meshRenderer != null)
+            {
+                _meshRenderer.sharedMaterial = _material;
+            }
+        }
+
+        void SetPanelSize()
+        {
+            if (
+                _renderTexture != null
+                && (
+                    _renderTexture.width != _settings.panelWidth
+                    || _renderTexture.height != _settings.panelHeight
+                )
+            )
+            {
+                _renderTexture.Release();
+                _renderTexture.width = _settings.panelWidth;
+                _renderTexture.height = _settings.panelHeight;
+                _renderTexture.Create();
+
+                Root?.MarkDirtyRepaint();
+            }
+
+            transform.localScale = new Vector3(
+                _settings.panelWidth / _settings.pixelsPerUnit,
+                _settings.panelHeight / _settings.pixelsPerUnit,
+                1.0f
+            );
+        }
+
+        void FixedUpdate()
         {
             // Only call TextureUpdate if necessary
             if (Root.resolvedStyle.width > 0 && Root.resolvedStyle.height > 0)
@@ -123,27 +165,6 @@ namespace Darklight.UXML
         void TextureUpdate()
         {
             StartCoroutine(TextureUpdateRoutine());
-        }
-
-        RenderTextureFormat GetSupportedRenderTextureFormat()
-        {
-            // Preferred order of formats (higher quality to lower)
-            RenderTextureFormat[] preferredFormats = new[]
-            {
-                RenderTextureFormat.ARGBHalf,
-                RenderTextureFormat.DefaultHDR,
-                RenderTextureFormat.Default,
-                RenderTextureFormat.ARGB32
-            };
-
-            foreach (var format in preferredFormats)
-            {
-                if (SystemInfo.SupportsRenderTextureFormat(format))
-                    return format;
-            }
-
-            // Final fallback
-            return RenderTextureFormat.ARGB32;
         }
 
         IEnumerator TextureUpdateRoutine()
@@ -166,13 +187,13 @@ namespace Darklight.UXML
             _meshRenderer.sharedMaterial.mainTexture = _frontBuffer;
 
             // Update the panel settings with the new front buffer
-            Document.panelSettings.targetTexture = _frontBuffer;
+            PanelSettings.targetTexture = _frontBuffer;
 
             // Force the UI document to repaint
-            Document.rootVisualElement.MarkDirtyRepaint();
+            Root.MarkDirtyRepaint();
         }
 
-        private void RenderToBackBuffer()
+        void RenderToBackBuffer()
         {
             if (_backBuffer == null)
             {
@@ -181,7 +202,7 @@ namespace Darklight.UXML
             }
 
             // Set the back buffer as the target for rendering
-            Document.panelSettings.targetTexture = _backBuffer;
+            PanelSettings.targetTexture = _backBuffer;
 
             // Clear the back buffer
             RenderTexture.active = _backBuffer;
@@ -189,23 +210,18 @@ namespace Darklight.UXML
             RenderTexture.active = null;
 
             // Force the UI document to repaint and render onto the back buffer
-            Document.rootVisualElement.MarkDirtyRepaint();
+            Root.MarkDirtyRepaint();
 
             // Ensure the UI rendering occurs
             //UIElementsUtility.UpdatePanels();
         }
 
-        private void SwapBuffers()
+        void SwapBuffers()
         {
             // Swap the front and back buffers
             var temp = _frontBuffer;
             _frontBuffer = _backBuffer;
             _backBuffer = temp;
-        }
-
-        public void SetLocalScale(float scale)
-        {
-            this.transform.localScale = new Vector3(scale, scale, scale);
         }
 
         public void Destroy()
@@ -220,6 +236,40 @@ namespace Darklight.UXML
             }
         }
 
+        static Mesh GetQuadMesh()
+        {
+            GameObject tempQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            Mesh quadMesh = tempQuad.GetComponent<MeshFilter>().sharedMesh;
+
+            if (Application.isPlaying)
+                Destroy(tempQuad);
+            else
+                DestroyImmediate(tempQuad);
+
+            return quadMesh;
+        }
+
+        static RenderTextureFormat GetSupportedRenderTextureFormat()
+        {
+            // Preferred order of formats (higher quality to lower)
+            RenderTextureFormat[] preferredFormats = new[]
+            {
+                RenderTextureFormat.ARGBHalf,
+                RenderTextureFormat.DefaultHDR,
+                RenderTextureFormat.Default,
+                RenderTextureFormat.ARGB32
+            };
+
+            foreach (var format in preferredFormats)
+            {
+                if (SystemInfo.SupportsRenderTextureFormat(format))
+                    return format;
+            }
+
+            // Final fallback
+            return RenderTextureFormat.ARGB32;
+        }
+
 #if UNITY_EDITOR
         void OnDrawGizmosSelected()
         {
@@ -231,5 +281,29 @@ namespace Darklight.UXML
             );
         }
 #endif
+
+        [System.Serializable]
+        public class Settings
+        {
+            [Tooltip("Should this object be destroyed when the editor is reloded")]
+            public bool destroyOnEditorReload = true;
+
+            [Header("Panel Configuration")]
+            [Tooltip("Width of the panel in pixels.")]
+            [Range(1, 4000)]
+            public int panelWidth = 1280;
+
+            [Tooltip("Height of the panel in pixels.")]
+            [Range(1, 4000)]
+            public int panelHeight = 720;
+
+            [Tooltip("Scale of the panel (like zoom in a browser).")]
+            [Range(0.01f, 10.0f)]
+            public float panelScale = 1.0f;
+
+            [Tooltip("Pixels per world unit. Determines the real-world size of the panel.")]
+            [Range(1, 1000)]
+            public float pixelsPerUnit = 500.0f;
+        }
     }
 }

@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Darklight.Editor;
 using Darklight.Utility;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityUtils;
 #if UNITY_EDITOR
 using UnityEditor;
 using NaughtyAttributes.Editor;
@@ -16,31 +18,76 @@ namespace Darklight.UXML
     /// It is suggested that you create a new ScriptableObject that inherits from UXML_UIDocumentPreset
     /// and assign it to the UIDocumentObject in the inspector.
     /// </summary>
-    [ExecuteAlways]
     [RequireComponent(typeof(UIDocument))]
     public class UXML_UIDocumentObject : MonoBehaviour, IUnityEditorListener
     {
-        // << PUBLIC ACCESSORS >> //
-        [SerializeField, Expandable]
+        UIDocument _uiDocument;
+        PanelSettings _panelSettings;
+
+        [SerializeField, Expandable, Required]
         [CreateAsset("NewUIDocumentPreset", "Assets/Resources/Darklight/UXML/")]
         private UXML_UIDocumentPreset _uiDocumentPreset;
 
-        public UIDocument Document => GetComponent<UIDocument>();
-        public UXML_UIDocumentPreset Preset => _uiDocumentPreset;
-        public VisualElement Root => Document.rootVisualElement;
+        // << PUBLIC ACCESSORS >> //
+        public UIDocument UIDocument
+        {
+            get => _uiDocument;
+            protected set => _uiDocument = value;
+        }
+        public PanelSettings PanelSettings
+        {
+            get => _panelSettings;
+            protected set
+            {
+                _panelSettings = value;
+                _uiDocument.panelSettings = _panelSettings;
+            }
+        }
+        public VisualElement Root => _uiDocument.rootVisualElement;
         public bool IsVisible { get; protected set; }
+
+        public Action<UXML_UIDocumentObject> OnInitialized;
 
         protected virtual void OnEditorReloaded()
         {
             Initialize();
         }
 
-        protected virtual void OnInitialized() { }
+        public virtual void Awake()
+        {
+            Initialize();
+        }
 
-        public virtual void Initialize(
-            UXML_UIDocumentPreset preset,
-            bool clonePanelSettings = false
-        )
+        /// <summary>
+        /// Initialize the UIDocumentObject with a visual tree asset and panel settings.
+        /// </summary>
+        /// <param name="visualTreeAsset">The visual tree asset to use for the UIDocument.</param>
+        /// <param name="panelSettings">The panel settings to use for the UIDocument.</param>
+        public void Initialize(VisualTreeAsset visualTreeAsset, PanelSettings panelSettings)
+        {
+            // Get or add the UIDocument component & assign the visual tree asset
+            _uiDocument = gameObject.GetOrAdd<UIDocument>();
+            _uiDocument.visualTreeAsset = visualTreeAsset;
+
+            // Create a new PanelSettings instance
+            _panelSettings = ScriptableObject.CreateInstance<PanelSettings>();
+
+            // Copy properties from the original PanelSettings to the new one
+            CopyPanelSettings(panelSettings, _panelSettings);
+            _uiDocument.panelSettings = _panelSettings;
+
+            // Set the layer to UI
+            gameObject.layer = LayerMask.NameToLayer("UI");
+
+            // Invoke the OnInitialized event
+            OnInitialized?.Invoke(this);
+        }
+
+        /// <summary>
+        /// Initialize the UIDocumentObject with a preset.
+        /// </summary>
+        /// <param name="preset">The preset to use for the UIDocument.</param>
+        public void Initialize(UXML_UIDocumentPreset preset)
         {
             this._uiDocumentPreset = preset;
             if (preset == null)
@@ -49,29 +96,12 @@ namespace Darklight.UXML
                 return;
             }
 
-            Document.visualTreeAsset = preset.visualTreeAsset;
-
-            if (clonePanelSettings)
-            {
-                // Create a new PanelSettings instance
-                PanelSettings clonedPanelSettings =
-                    ScriptableObject.CreateInstance<PanelSettings>();
-
-                // Copy properties from the original PanelSettings to the new one
-                CopyPanelSettings(preset.panelSettings, clonedPanelSettings);
-                Document.panelSettings = clonedPanelSettings;
-            }
-            else
-            {
-                Document.panelSettings = preset.panelSettings;
-            }
-
-            // Assign the layer
-            gameObject.layer = LayerMask.NameToLayer("UI");
-
-            //Debug.Log($"Initialized UIDocumentObject with preset {preset.name}");
+            Initialize(preset.visualTreeAsset, preset.panelSettings);
         }
 
+        /// <summary>
+        /// Initialize the UIDocumentObject with the current scriptable object preset.
+        /// </summary>
         public virtual void Initialize()
         {
             Initialize(_uiDocumentPreset);
