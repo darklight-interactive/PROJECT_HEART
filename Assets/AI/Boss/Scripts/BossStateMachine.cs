@@ -7,14 +7,18 @@ namespace ProjectHeart
 {
     public class BossStateMachine : MonoBehaviour
     {
-        private enum BOSS_PHASES { START, PHASE_01, PHASE_02, PHASE_03, DEAD }
+        public enum BOSS_PHASES { START, PHASE_01, PHASE_02, PHASE_03, DEAD }
 
         [Header("Refrences")]
 
-        [SerializeField] private GameObject Player;
+        [SerializeField] private GameObject player;
+
+        public GameObject Player => player;
 
         [Header("Stats")]
         [SerializeField] private BossStats bossStats;
+
+        public BossStats BossStats => bossStats;
 
 
         [Header("RigidBody")]
@@ -22,6 +26,8 @@ namespace ProjectHeart
 
         [Header("Animator")]
         [SerializeField] private Animator animator;
+
+        public Animator Animator => animator;
 
 
         [Header("RayCast")]
@@ -39,14 +45,14 @@ namespace ProjectHeart
         [SerializeField] private float attackDuration;
         [SerializeField] private BOSS_PHASES currentPhase;
 
-        [SerializeField] private ParticleSystem particle;
 
+        // public UnityEvent OnHurt;
+        // public UnityEvent PHASE_01;
+        // public UnityEvent PHASE_02;
+        // public UnityEvent PHASE_03;
+        // public UnityEvent OnDeath;
 
-        public UnityEvent OnHurt;
-        public UnityEvent PHASE_01;
-        public UnityEvent PHASE_02;
-        public UnityEvent PHASE_03;
-        public UnityEvent OnDeath;
+        [SerializeField] private AttackPhaseState phase1State;
 
 
 
@@ -76,7 +82,7 @@ namespace ProjectHeart
 
         void Awake()
         {
-            currentPhase = BOSS_PHASES.START;
+            currentPhase = BOSS_PHASES.PHASE_01;
             Health = bossStats.Health;
             rb = GetComponent<Rigidbody>();
             animator = GetComponent<Animator>();
@@ -94,7 +100,7 @@ namespace ProjectHeart
             // Check Health
             // Update to appropriate state
 
-            // UpdateState();
+            UpdateState();
 
 
             // if (isBeingAttacked)
@@ -109,15 +115,15 @@ namespace ProjectHeart
 
         void FixedUpdate()
         {
-            MoveTowardsPlayer();
-            RotateTowardsPlayer();
+            // MoveTowardsPlayer();
+            // RotateTowardsPlayer();
 
         }
 
         private void MoveTowardsPlayer()
         {
 
-            Vector3 targetPosition = Player.gameObject.transform.position;
+            Vector3 targetPosition = player.gameObject.transform.position;
 
             float singleStep = bossStats.Speed * Time.fixedDeltaTime;
             if (Vector3.Distance(transform.position, targetPosition) > 3.5f)
@@ -130,7 +136,7 @@ namespace ProjectHeart
         private void RotateTowardsPlayer()
         {
             // Rotate toward player move to player
-            Vector3 directionToPlayer = Player.transform.position - transform.position;
+            Vector3 directionToPlayer = player.transform.position - transform.position;
             if (directionToPlayer != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -149,23 +155,29 @@ namespace ProjectHeart
             switch (currentPhase)
             {
                 case BOSS_PHASES.PHASE_01:
-                    PHASE_01?.Invoke();
+                    if (phase1State == null)
+                    {
+                        phase1State = new AttackPhaseState(this);
+                    }
+
+                    phase1State.Tick();
                     if (Mathf.Approximately(health, 66f))
                         currentPhase = BOSS_PHASES.PHASE_02;
+
                     break;
                 case BOSS_PHASES.PHASE_02:
-                    PHASE_02?.Invoke();
+                    // PHASE_02?.Invoke();
                     if (Mathf.Approximately(health, 33f))
                         currentPhase = BOSS_PHASES.PHASE_02;
 
                     break;
                 case BOSS_PHASES.PHASE_03:
-                    PHASE_03?.Invoke();
+                    // PHASE_03?.Invoke();
                     if (Mathf.Approximately(health, 10f))
                         currentPhase = BOSS_PHASES.PHASE_02;
                     break;
                 case BOSS_PHASES.DEAD:
-                    OnDeath?.Invoke();
+                    // OnDeath?.Invoke();
                     break;
             }
         }
@@ -187,7 +199,7 @@ namespace ProjectHeart
         public void HandleOnHurt()
         {
 
-            animator.SetTrigger("Hurt");
+            // animator.SetTrigger("Hurt");
             return;
         }
 
@@ -197,12 +209,6 @@ namespace ProjectHeart
             hurtSfx.Play();
         }
 
-        public void ParticlePlay()
-        {
-            Debug.Log("Particle Played!");
-
-            particle.Play();
-        }
         void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;

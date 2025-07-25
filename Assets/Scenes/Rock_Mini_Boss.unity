@@ -8151,10 +8151,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: ImpulseDefinition.ImpulseDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: ImpulseDefinition.PropagationSpeed
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 975405230}
+    - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 975405230}
+    - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: currentPhase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: PHASE_01.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5558675417158182835, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_Name
       value: '[BOSS]'
@@ -8220,10 +8240,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
-      propertyPath: m_ApplyRootMotion
+      propertyPath: m_UpdateMode
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5825195219244773941, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
