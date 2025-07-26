@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RockBoss
   m_EditorClassIdentifier: 
   Health: 100
-  Speed: 5
+  Speed: 4
   Strength: 200

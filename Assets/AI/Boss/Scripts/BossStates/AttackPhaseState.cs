@@ -8,20 +8,45 @@ namespace ProjectHeart
 	{
 		private readonly Queue<IState> queue = new();
 
+		private readonly List<Func<BossStateMachine, IState>> stateFactories = new();
+
 		[SerializeField] private IState previousState;
 		[SerializeField] private IState currentState;
 
-		public AttackPhaseState(BossStateMachine boss)
+		private BossStateMachine boss;
+
+		private int remainingLoops;
+		private bool infiniteLoop;
+
+		public AttackPhaseState(BossStateMachine boss, int repeatingLoop = 1, bool runInfinitely = true)
 		{
-		
-			queue.Enqueue(new RumbleState(boss));
-			queue.Enqueue(new JumpState(boss));
-			queue.Enqueue(new FollowPlayerState(boss));
-			queue.Enqueue(new DropState(boss));
+			this.boss = boss;
+			this.remainingLoops = repeatingLoop;
+			this.infiniteLoop = runInfinitely;
+
+			stateFactories.Add(b => new RumbleState(b));
+			stateFactories.Add(b => new JumpState(b));
+			// stateFactories.Add(b => new FollowPlayerState(b));
+			stateFactories.Add(b => new DropState(b));
+
+			UpdateQueue();
+		}
+
+		private void UpdateQueue()
+		{
+			queue.Clear();
+			foreach (var factory in stateFactories) {
+				queue.Enqueue(factory(this.boss));
+			 }
+			// queue.Enqueue(new RumbleState(boss));
+			// queue.Enqueue(new JumpState(boss));
+			// queue.Enqueue(new FollowPlayerState(boss));
+			// queue.Enqueue(new DropState(boss));
 		}
 
 		public void Tick()
 		{
+
 			if (this.currentState == null && queue.Count > 0)
 			{
 				this.currentState = queue.Dequeue();
@@ -34,10 +59,17 @@ namespace ProjectHeart
 			{
 				this.currentState.Exit();
 				this.currentState = null;
+
+				if (queue.Count == 0 && (infiniteLoop || this.remainingLoops > 1))
+				{
+					if (!infiniteLoop)
+						this.remainingLoops--;
+					UpdateQueue();
+				}
 			}
 		}
 
-		public bool IsComplete => currentState == null && queue.Count == 0;
+		public bool IsComplete => !infiniteLoop && remainingLoops <= 0 && currentState == null && queue.Count == 0;
 	}
 
 }

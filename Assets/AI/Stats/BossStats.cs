@@ -5,11 +5,11 @@ namespace ProjectHeart
     [CreateAssetMenu(fileName = "BossStats", menuName = "Scriptable Objects/BossStats")]
     public class BossStats : ScriptableObject
     {
-        public int Health;
+        public float Health;
 
-        public int Speed;
+        public float Speed;
 
-        public int Strength; 
+        public float Strength; 
     
     }
 }

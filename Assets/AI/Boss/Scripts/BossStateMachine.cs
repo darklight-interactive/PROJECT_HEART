@@ -155,12 +155,12 @@ namespace ProjectHeart
             switch (currentPhase)
             {
                 case BOSS_PHASES.PHASE_01:
-                    if (phase1State == null)
+                    if (this.phase1State == null)
                     {
-                        phase1State = new AttackPhaseState(this);
+                        this.phase1State = new AttackPhaseState(this);
                     }
 
-                    phase1State.Tick();
+                    this.phase1State.Tick();
                     if (Mathf.Approximately(health, 66f))
                         currentPhase = BOSS_PHASES.PHASE_02;
 

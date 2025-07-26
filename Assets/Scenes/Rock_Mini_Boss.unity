@@ -8151,13 +8151,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 188278226836244485, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: ImpulseDefinition.ImpulseDuration
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: ImpulseDefinition.PropagationSpeed
-      value: 1000
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733626483224686363, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: ImpulseDefinition.DissipationDistance
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: Player
@@ -8168,8 +8180,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 975405230}
     - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: currentPhase
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: isBeingAttacked
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3589578606067552847, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: PHASE_01.Array.size
@@ -8201,15 +8221,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8329442181401298501, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 8329442181401298501, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.78
       objectReference: {fileID: 0}
     - target: {fileID: 8329442181401298501, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.460001
+      value: 10.16
       objectReference: {fileID: 0}
     - target: {fileID: 8329442181401298501, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8240,8 +8260,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_UpdateMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_AnimatePhysics
@@ -8249,7 +8273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8658347197709121481, guid: b376d63bb435fb342864eaf3c9602963, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5825195219244773941, guid: b376d63bb435fb342864eaf3c9602963, type: 3}

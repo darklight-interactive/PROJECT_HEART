@@ -12,30 +12,29 @@ namespace ProjectHeart
 	}
 	#endregion
 
-
 	#region RumbleState
 	public class RumbleState : IState
 	{
 		private Animator animator;
 		private bool triggered;
-		private string currentAnimation;
-		private static int layerIndex = 0;
+
+		private static readonly int rumbleAnimation = Animator.StringToHash("Rumble_00");
+		private static readonly int layerIndex = 0;
+		private static readonly float crossFadeDuration = 0;
+
 		public bool IsComplete { get; private set; }
 
 		public RumbleState(BossStateMachine bossStateMachine)
 		{
 			this.animator = bossStateMachine.Animator;
 
-			var animatorClipInfo = this.animator.GetCurrentAnimatorClipInfo(layerIndex);
-			currentAnimation = animatorClipInfo.Length > 0 ? animatorClipInfo[0].clip.name : "";
+
 		}
 
 		public void Enter()
 		{
-			Debug.Log($"Entering the RumbleState");
-
-			int rumbleAnimation = Animator.StringToHash("Rumble_00");
-			animator.CrossFade(rumbleAnimation, 0.5f, layerIndex);
+			Debug.Log("Entering the RumbleState");
+			animator.CrossFade(rumbleAnimation, crossFadeDuration, layerIndex);
 			triggered = true;
 		}
 
@@ -44,7 +43,7 @@ namespace ProjectHeart
 			if (!triggered) return;
 
 			var state = animator.GetCurrentAnimatorStateInfo(layerIndex);
-			if (state.IsName("Rumble_00") && state.normalizedTime >= 1f)
+			if (state.normalizedTime >= 1f)
 			{
 				IsComplete = true;
 			}
@@ -60,9 +59,10 @@ namespace ProjectHeart
 		private Animator animator;
 		private bool triggered;
 
-		private readonly int jumpAnimation = Animator.StringToHash("Jump_00");
-		private static float normalizedTransitionDuration = 0;
-		private static int layerIndex = 0;
+		private static readonly int jumpAnimation = Animator.StringToHash("Jump_00");
+		private static readonly int layerIndex = 0;
+		private static readonly float crossFadeDuration = 0;
+
 		public bool IsComplete { get; private set; }
 
 		public JumpState(BossStateMachine bossStateMachine)
@@ -72,9 +72,9 @@ namespace ProjectHeart
 
 		public void Enter()
 		{
-			Debug.Log($"Entering the JumpState");
+			Debug.Log("Entering the JumpState");
 
-			animator.CrossFade(jumpAnimation, normalizedTransitionDuration, layerIndex);
+			animator.CrossFade(jumpAnimation, crossFadeDuration, layerIndex);
 			triggered = true;
 		}
 
@@ -83,16 +83,13 @@ namespace ProjectHeart
 			if (!triggered) return;
 
 			var state = animator.GetCurrentAnimatorStateInfo(layerIndex);
-			if (state.IsName("Jump_00") && state.normalizedTime >= 1f)
+			if (state.normalizedTime >= 1f)
 			{
 				IsComplete = true;
 			}
 		}
 
-		public void Exit()
-		{
-			animator.applyRootMotion = true;
-		}
+		public void Exit() { }
 	}
 	#endregion
 
@@ -120,7 +117,7 @@ namespace ProjectHeart
 
 		public void Enter()
 		{
-			Debug.Log($"Entering the FollowPlayer State");
+			Debug.Log("Entering the FollowPlayer State");
 			// animator.applyRootMotion = true;
 		}
 
@@ -141,7 +138,7 @@ namespace ProjectHeart
 
 		public void Exit()
 		{
-			// animator.applyRootMotion = false;
+			//animator.applyRootMotion = false;
 		}
 	}
 	#endregion
@@ -151,24 +148,23 @@ namespace ProjectHeart
 	{
 		private Animator animator;
 		private bool triggered;
-		private string currentAnimation;
-		private static int layerIndex = 0;
+
+		private static readonly int dropAnimation = Animator.StringToHash("Drop_00");
+		private static readonly int layerIndex = 0;
+		private static readonly float crossFadeDuration = 0;
 
 		public bool IsComplete { get; private set; }
 
 		public DropState(BossStateMachine bossStateMachine)
 		{
 			this.animator = bossStateMachine.Animator;
-
-			var animatorClipInfo = this.animator.GetCurrentAnimatorClipInfo(layerIndex);
-			currentAnimation = animatorClipInfo.Length > 0 ? animatorClipInfo[0].clip.name : "";
 		}
 
 		public void Enter()
 		{
-			Debug.Log($"Entering the DropState");
-			int dropAnimation = Animator.StringToHash("Drop_00");
-			animator.CrossFade(dropAnimation, 0.5f, layerIndex);
+			Debug.Log("Entering the DropState");
+
+			animator.CrossFade(dropAnimation, crossFadeDuration, layerIndex);
 			triggered = true;
 		}
 
@@ -177,7 +173,7 @@ namespace ProjectHeart
 			if (!triggered) return;
 
 			var state = animator.GetCurrentAnimatorStateInfo(layerIndex);
-			if (state.IsName("Drop_00") && state.normalizedTime >= 1f)
+			if (state.normalizedTime >= 1f)
 			{
 				IsComplete = true;
 			}
